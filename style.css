@@ -1,62 +1,186 @@
-/* Estilos para los formularios */
-form {
+.body {
+  background-color: #2c2c2d;
+}
+
+.flatpickr-day.disabled {
+  background-color: #564f4f;
+  color: #ccc;
+  cursor: not-allowed;
+}
+
+.flatpickr-day.red {
+  background-color: #ff4d4d;
+  color: white;
+}
+
+.selected {
+  background-color: rgb(180, 194, 199);
+  border: 2px solid rgb(198, 198, 208);
+}
+
+.navbar-brand,
+.nav-link {
+  color: #c7cecd !important;
+}
+
+.btn-custom {
+  background-color: #b2b6b5;
+  color: #000;
+  border: none;
+  font-weight: bold;
+}
+
+.btn-custom:hover {
+  background-color: #b2b6b5; /* Un tono más oscuro para el efecto hover */
+}
+
+.custom-header {
+  background-color: #000000; /* Negro */
+}
+
+.boton-tatuadores,
+.boton-estilos,
+.boton-zonas,
+.boton-agendar {
+  background-color: #b2b6b5;
+  color: rgb(0, 0, 0);
+  border-radius: 12px;
+  padding: 10px 20px;
+  margin: 7px;
+  border: none;
+  flex: 1 1 100px;
+  max-width: 160px;
+  text-align: center;
+  font-weight: bold;
+}
+
+#tatuadorButtons,
+#tipoTatuajeButtons,
+#zonaTatuajeButtons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+/* Ajustes para Pantallas Pequeñas */
+@media (max-width: 576px) {
+  .boton-tatuadores,
+  .boton-estilos,
+  .boton-zonas {
+    font-size: 14px;
+    padding: 8px 16px;
+    max-width: 100%;
+  }
+}
+
+/* Ajustes para Pantallas Medianas y Grandes */
+@media (min-width: 576px) {
+  .boton-tatuadores,
+  .boton-estilos,
+  .boton-zonas {
+    font-size: 16px;
+    padding: 10px 20px;
+  }
+}
+
+.seleccion-tatuador,
+.seleccion-tipo,
+.seleccion-zona,
+.seleccion-fecha,
+.seleccion-hora {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: medium;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  color: #b2b6b5;
+  flex-wrap: wrap;
+}
+
+.boton-tatuador,
+.boton-zona,
+.boton-tipo,
+.boton-agendar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.calendario-container {
   display: flex;
   flex-direction: column;
-  max-width: 400px;
-  margin: 0 auto;
-  padding: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  background-color: #f9f9f9;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
 }
 
-label {
-  margin-bottom: 0.5rem;
-}
-
-input {
-  margin-bottom: 1rem;
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-
-button {
-  padding: 0.75rem;
-  border: none;
-  border-radius: 4px;
-  background-color: #ba56b0;
-  color: #151515;
-  font-size: 1.2rem;
-  cursor: pointer;
-}
-
-button:hover {
-  background-color: #a3004f;
-}
-
-/* Ocultar el formulario de registro por defecto */
-
-
-.login {
-  font-size: 24px;
-  color: rgb(213, 36, 104);
-  text-align: center;
-  font-family: Arial, sans-serif;
-}
-
-.registro {
-   font-size: 24px;
-  color: rgb(5, 5, 5);
-  text-align: center;
-  font-family: Arial, sans-serif;
-  margin-bottom: 20px;
-  margin-top: 20px;
-}
-
-.boton-registro {
-  margin-top: 20px;
+.calendario {
   display: flex;
-    justify-content: center; /* Centra horizontalmente */
-    align-items: center; /* Centra verticalmente (opcional) */
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  margin-bottom: 15px;
+}
+
+.seleccion-fecha {
+  margin-bottom: 20px; /* Ajusta el espacio entre el título y el calendario */
+}
+
+.carousel {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  max-width: 850px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.selector-hora {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.form-container {
+  border: 5px solid #c0c3c3; 
+  border-radius: 8px; 
+  margin: auto;
+  max-width: 400px; 
+  background-color: #403e3e; 
+
+}
+
+.form-container label {
+  display: block; 
+  margin-top: 10px; 
+  margin-bottom: 5px; 
+}
+
+.form-container input,
+.form-container textarea {
+  width: 100%; 
+  padding: 8px;
+  border-radius: 4px; 
+  border: 1px solid #ccc; 
+  margin-bottom: 15px; 
+}
+
+.boton-agendar {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #b2b6b5;
+  color: rgb(0, 0, 0);
+  border-radius: 12px;
+  padding: 10px 20px;
+  margin: 7px;
+  border: none;
+  max-width: 160px;
+  text-align: center;
+  font-weight: bold;
+  cursor: pointer; 
 }

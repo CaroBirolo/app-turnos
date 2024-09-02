@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Seleccionar Nombres</title>
+    <style>
+        .selected {
+            background-color: lightblue;
+            border: 2px solid darkblue;
+        }
+    </style>
+</head>
+<body>
+    <h2>Selecciona un nombre:</h2>
+    <div id="buttonContainer"></div>
+    <p id="selectedName">Nombre seleccionado: Ninguno</p>
+
+    <script>
+        const nombres = ["Ana", "Luis", "María", "Carlos", "Elena"];
+        let nombreSeleccionado = null;
+
+        const buttonContainer = document.getElementById('buttonContainer');
+        const selectedNameDisplay = document.getElementById('selectedName');
+
+        nombres.forEach(nombre => {
+            const button = document.createElement('button');
+            button.innerText = nombre;
+            button.addEventListener('click', () => seleccionarNombre(nombre, button));
+            buttonContainer.appendChild(button);
+        });
+
+        function seleccionarNombre(nombre, button) {
+            // Quitar la selección previa
+            if (nombreSeleccionado) {
+                const prevButton = [...buttonContainer.children].find(btn => btn.innerText === nombreSeleccionado);
+                if (prevButton) {
+                    prevButton.classList.remove('selected');
+                }
+            }
+            // Actualizar la selección actual
+            nombreSeleccionado = nombre;
+            button.classList.add('selected');
+            selectedNameDisplay.innerText = `Nombre seleccionado: ${nombre}`;
+            // Aquí puedes hacer lo que necesites con el nombre seleccionado
+            console.log(`Nombre seleccionado: ${nombreSeleccionado}`);
+        }
+    </script>
+</body>
+</html>
