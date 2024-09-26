@@ -8,14 +8,8 @@
       href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css"
       rel="stylesheet"
     />
-
-    <link
-      rel="stylesheet"
-      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
-    />
     <link href="style.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
     <script src="https://accounts.google.com/gsi/client" async defer></script>
@@ -26,12 +20,12 @@
       href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
     />
   </head>
-  <body class="body">
-    <header class="custom-header">
-      <nav class="navbar navbar-expand-lg navbar-dark container nav-agenda" style="padding: 0px">
-        <a class="navbar-brand logo-anchor" href="#">
+  <body class="bg-dark text-light">
+    <header class="bg-light">
+      <nav class="navbar navbar-expand-lg navbar-light container">
+        <a class="navbar-brand d-flex align-items-center" href="#">
           <img src="img/logo-cuadrado.png" alt="Logo" width="45" height="45" />
-          <span class="text-agenda">TuAgenda</span>
+          <span class="ms-2 fw-bold fst-italic">TuAgenda</span>
         </a>
         <button
           class="navbar-toggler"
@@ -47,20 +41,20 @@
         <div class="collapse navbar-collapse" id="navbarNav">
           <ul class="navbar-nav ms-auto">
             <li class="nav-item">
-              <a class="nav-link text-white" href="#">Inicio</a>
+              <a class="nav-link" href="#">Inicio</a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white" href="#">Presupuesto</a>
+              <a class="nav-link" href="#">Presupuesto</a>
             </li>
             <li class="nav-item">
-              <a class="btn btn-custom" href="index.html">Demo cliente</a>
+              <a class="btn btn-primary" href="index.html">Demo cliente</a>
             </li>
           </ul>
         </div>
       </nav>
     </header>
 
-    <div class="container mt-5" style="max-width: 600px;">
+    <div class="container mt-5 container py-4">
 
       <div>Usuario: usuario</div>
 
@@ -94,8 +88,9 @@ Saludos,
 TuAgenda
         </textarea>
       </div>
+      <button type="submit" class="btn btn-primary w-100">Guardar</button>
     </div>
-    <button type="submit" class="btn btn-primary w-100">Guardar</button>
+    
   </div>
 
       <div id="abm-turnos" class="container py-4">
@@ -150,80 +145,6 @@ TuAgenda
                 </table>
             </div>
         </div>
-        
-        <script>
-        // Dropdown dependientes
-        const lugarDropdown = document.getElementById('lugar');
-        const tipoTatuajeDropdown = document.getElementById('tipo-tatuaje');
-        
-        tipoTatuajeDropdown.addEventListener('change', function() {
-            const tipoTatuaje = this.value;
-            lugarDropdown.innerHTML = ''; // Limpiar opciones previas
-        
-            if (tipoTatuaje === 'tradicional') {
-                lugarDropdown.innerHTML = '<option value="brazo">Brazo</option><option value="pierna">Pierna</option>';
-            } else if (tipoTatuaje === 'realismo') {
-                lugarDropdown.innerHTML = '<option value="espalda">Espalda</option><option value="pecho">Pecho</option>';
-            }
-        });
-        
-        // Funcionalidad ABM Turnos
-        const tablaTurnos = document.getElementById('tabla-turnos');
-        const agregarTurnoBtn = document.getElementById('agregar-turno');
-        
-        agregarTurnoBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-        
-            const tipoTatuaje = tipoTatuajeDropdown.value;
-            const lugar = lugarDropdown.value;
-            const fecha = document.getElementById('fecha').value;
-            const hora = document.getElementById('hora').value;
-        
-            if (tipoTatuaje && lugar && fecha && hora) {
-                const turnoFila = document.createElement('tr');
-        
-                turnoFila.innerHTML = `
-                    <td>${tipoTatuaje}</td>
-                    <td>${lugar}</td>
-                    <td>${fecha}</td>
-                    <td>${hora}</td>
-                    <td>
-                        <button class="btn btn-warning btn-sm editar-turno">Editar</button>
-                        <button class="btn btn-danger btn-sm eliminar-turno">Eliminar</button>
-                    </td>
-                `;
-        
-                // Agregar evento de eliminar
-                turnoFila.querySelector('.eliminar-turno').addEventListener('click', function() {
-                    tablaTurnos.removeChild(turnoFila);
-                });
-        
-                // Agregar evento de editar
-                turnoFila.querySelector('.editar-turno').addEventListener('click', function() {
-                    tipoTatuajeDropdown.value = tipoTatuaje;
-                    lugarDropdown.innerHTML = lugar === 'brazo' || lugar === 'pierna' ? 
-                        '<option value="brazo">Brazo</option><option value="pierna">Pierna</option>' :
-                        '<option value="espalda">Espalda</option><option value="pecho">Pecho</option>';
-                    lugarDropdown.value = lugar;
-                    document.getElementById('fecha').value = fecha;
-                    document.getElementById('hora').value = hora;
-        
-                    tablaTurnos.removeChild(turnoFila); // Eliminar la fila vieja
-                });
-        
-                // Añadir turno a la tabla
-                tablaTurnos.appendChild(turnoFila);
-        
-                // Limpiar inputs
-                tipoTatuajeDropdown.value = '';
-                lugarDropdown.innerHTML = '';
-                document.getElementById('fecha').value = '';
-                document.getElementById('hora').value = '';
-            } else {
-                alert('Por favor, completa todos los campos.');
-            }
-        });
-        </script>
 
     <footer class="footer-custom mt-5">
       <div class="container d-flex justify-content-between align-items-center flex-wrap">
@@ -241,6 +162,6 @@ TuAgenda
       </div>
     </footer>
 
-    <script src="script.js"></script>
+    <script src="demo-admin-script.js"></script>
   </body>
 </html>
