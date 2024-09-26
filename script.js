@@ -2,9 +2,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const tatuadores = ["agostina", "nicolás"];
     const estilosPorTatuador = {
         agostina: ['Obras de arte/pinturitas', 'Lineales', 'Kintsugi', 'Ramos de flores', 'Diseños disponibles', 'Personalizado'],
-        nicolás: ['blackwork', 'geométrico', 'old school', 'neotradicional'],
+        nicolás: ['Anime fullcolor', 'Anime puntillismo', 'Anime en negro con detalles de color', 'Manga formato panel'],
     };
-    const zonas = ["Brazo", "Pierna"];
+    const zonas = ["Brazo", "Pierna", "Pecho", "Espalda"];
 
     const tatuadorButtons = document.getElementById('tatuadorButtons');
     const tipoTatuajeButtons = document.getElementById('tipoTatuajeButtons');
@@ -112,3 +112,23 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
 });
+
+function handleCredentialResponse(response) {
+    // Decodifica el token JWT (opcional)
+    const userObject = jwt_decode(response.credential);
+    console.log(userObject);
+  
+    // Aquí puedes manejar los datos del usuario, como enviarlos a tu backend para iniciar sesión
+  }
+
+  fetch('/login', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ token: response.credential })
+  }).then(response => response.json())
+    .then(data => {
+      // Manejar la respuesta del servidor
+    });
+  
