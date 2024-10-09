@@ -55,31 +55,55 @@
     </header>
 
     <div class="container mt-5 container py-4">
-
-      <div>Usuario: usuario</div>
+      <div>Usuario: Agostina</div>
 
       <div class="form-admin mb-3">
         <h5>Próximos turnos (Mockeados)</h5>
         <ul class="list-group">
-          <li class="list-group-item">15 de septiembre - 10:00 AM - Cliente: Juan Pérez</li>
-          <li class="list-group-item">16 de septiembre - 12:00 PM - Cliente: Ana López</li>
-          <li class="list-group-item">16 de septiembre - 2:00 PM - Cliente: Carlos García</li>
+          <li class="list-group-item">
+            15 de septiembre - 10:00 AM - Cliente: Juan Pérez
+          </li>
+          <li class="list-group-item">
+            16 de septiembre - 12:00 PM - Cliente: Ana López
+          </li>
+          <li class="list-group-item">
+            16 de septiembre - 2:00 PM - Cliente: Carlos García
+          </li>
         </ul>
       </div>
 
       <div class="form-admin mb-3">
         <label for="hora-apertura" class="form-label">Hora de apertura:</label>
-        <input type="time" id="hora-apertura" name="hora-apertura" class="form-control" required />
+        <input
+          type="time"
+          id="hora-apertura"
+          name="hora-apertura"
+          class="form-control"
+          required
+        />
       </div>
 
       <div class="form-admin mb-3">
         <label for="hora-cierre" class="form-label">Hora de cierre:</label>
-        <input type="time" id="hora-cierre" name="hora-cierre" class="form-control" required />
+        <input
+          type="time"
+          id="hora-cierre"
+          name="hora-cierre"
+          class="form-control"
+          required
+        />
       </div>
 
       <div class="form-admin mb-3">
-        <label for="template-email" class="form-label">Template de email para confirmar el turno:</label>
-        <textarea id="template-email" name="template-email" rows="5" class="form-control">
+        <label for="template-email" class="form-label"
+          >Template de email para confirmar el turno:</label
+        >
+        <textarea
+          id="template-email"
+          name="template-email"
+          rows="5"
+          class="form-control"
+        >
 Estimado/a [Nombre del cliente],
 
 Le confirmamos su turno para el [Día] a las [Hora].
@@ -90,67 +114,108 @@ TuAgenda
       </div>
       <button type="submit" class="btn btn-primary w-100">Guardar</button>
     </div>
-    
-  </div>
-
-      <div id="abm-turnos" class="container py-4">
-        <div class="form-admin mb-4">
-            <h5>Agregar Turno</h5>
-            <div class="row">
-                <div class="col-12 col-md-6 mb-3">
-                    <label for="tipo-tatuaje" class="form-label">Tipo de Tatuaje:</label>
-                    <select id="tipo-tatuaje" class="form-select">
-                        <option value="">Seleccionar</option>
-                        <option value="tradicional">Tradicional</option>
-                        <option value="realismo">Realismo</option>
-                    </select>
-                </div>
-                <div class="col-12 col-md-6 mb-3">
-                    <label for="lugar" class="form-label">Lugar:</label>
-                    <select id="lugar" class="form-select">
-                        <option value="">Seleccionar</option>
-                    </select>
-                </div>
-                <div class="col-12 col-md-6 mb-3">
-                    <label for="fecha" class="form-label">Fecha:</label>
-                    <input type="date" id="fecha" class="form-control" />
-                </div>
-                <div class="col-12 col-md-6 mb-3">
-                    <label for="hora" class="form-label">Hora:</label>
-                    <input type="time" id="hora" class="form-control" />
-                </div>
-                <div class="col-12 text-end">
-                    <button id="agregar-turno" class="btn btn-success">Agregar Turno</button>
-                </div>
-            </div>
+    <div id="abm-turnos" class="container py-4">
+      <div class="form-admin mb-4">
+        <h5>Agregar Turno</h5>
+        <div class="row">
+          <div class="col-12 col-md-6 mb-3">
+            <label for="nombre" class="form-label">Nombre:</label>
+            <input
+              type="text"
+              id="nombre"
+              class="form-control"
+              placeholder="Ingresar nombre"
+            />
+          </div>
+          <div class="col-12 col-md-6 mb-3">
+            <label for="apellido" class="form-label">Apellido:</label>
+            <input
+              type="text"
+              id="apellido"
+              class="form-control"
+              placeholder="Ingresar apellido"
+            />
+          </div>
+          <div class="col-12 col-md-6 mb-3">
+            <label for="telefono" class="form-label">Teléfono:</label>
+            <input
+              type="tel"
+              id="telefono"
+              class="form-control"
+              placeholder="Ingresar teléfono"
+            />
+          </div>
+          <div class="col-12 col-md-6 mb-3">
+            <label for="tipo-tatuaje" class="form-label"
+              >Tipo de Tatuaje:</label
+            >
+            <select id="tipo-tatuaje" class="form-select">
+              <option value="">Seleccionar</option>
+              <option value="pinturitas">Obras de arte/pinturitas</option>
+              <option value="lineales">Lineales</option>
+              <option value="Kintsugi">Kintsugi</option>
+              <option value="Ramos-flores">Ramos de flores</option>
+              <option value="disenos-disp">Diseños disponibles</option>
+            </select>
+          </div>
+          <div class="col-12 col-md-6 mb-3">
+            <label for="lugar" class="form-label">Lugar:</label>
+            <select id="lugar" class="form-select">
+              <option value="">Seleccionar</option>
+              <option value="brazo">Brazo</option>
+              <option value="pierna">Pierna</option>
+              <option value="espalda">Espalda</option>
+              <option value="pecho">Pecho</option>
+              <option value="costilla">Costilla</option>
+              <option value="antebrazo">Antebrazo</option>
+            </select>
+          </div>
+          <div class="col-12 col-md-6 mb-3">
+            <label for="fecha" class="form-label">Fecha:</label>
+            <input type="date" id="fecha" class="form-control" />
+          </div>
+          <div class="col-12 col-md-6 mb-3">
+            <label for="hora" class="form-label">Hora:</label>
+            <input type="time" id="hora" class="form-control" />
+          </div>
+          <div class="col-12 text-end">
+            <button id="agregar-turno" class="btn btn-success w-100 mt-3 mb-3">
+              Agregar Turno
+            </button>
+          </div>
         </div>
-        
-        <!-- Tabla de Turnos -->
-        <div class="form-admin">
-            <h5>Turnos Agregados</h5>
-            <div class="table-responsive">
-                <table class="table table-striped">
-                    <thead>
-                        <tr>
-                            <th>Tatuaje</th>
-                            <th>Lugar</th>
-                            <th>Fecha</th>
-                            <th>Hora</th>
-                            <th>Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody id="tabla-turnos">
-                        <!-- Aquí se agregarán los turnos dinámicamente -->
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        
       </div>
+
+      <!-- Tabla de Turnos -->
+      <div class="form-admin">
+        <h5>Turnos Agregados</h5>
+        <div class="table-responsive">
+          <table class="table table-striped">
+            <thead>
+              <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+                <th>Telefono</th>
+                <th>Tatuaje</th>
+                <th>Lugar</th>
+                <th>Fecha</th>
+                <th>Hora</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tabla-turnos">
+              <!-- Aquí se agregarán los turnos dinámicamente -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
     <script src="demo-admin-script.js"></script>
   </body>
   <footer class="footer-custom mt-5">
-    <div class="container d-flex justify-content-between align-items-center flex-wrap">
+    <div
+      class="container d-flex justify-content-between align-items-center flex-wrap"
+    >
       <p class="mb-0">&copy; 2024 TuAgenda. Todos los derechos reservados.</p>
       <p class="mb-0">
         <a href="#" class="me-2">Acerca de</a> |

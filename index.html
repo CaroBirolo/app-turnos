@@ -18,6 +18,10 @@
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
   </head>
   <body class="bg-dark text-light">
     <header class="bg-light">
@@ -132,10 +136,14 @@
         <input type="text" id="nombre_input" class="form-control" />
       </div>
       <div class="mb-3">
+        <label for="telefono_input" class="form-label">Telefono:</label>
+        <input type="text" id="telefono_input" class="form-control" type="tel" />
+      </div>
+      <div class="mb-3">
         <label for="notas_input" class="form-label">Notas adicionales:</label>
         <textarea id="notas_input" class="form-control" rows="4"></textarea>
       </div>
-      <button class="btn btn-primary w-100 boton-agendar" id="agendarTurno">Agendar Turno</button>
+      <button class="btn btn-success w-100 mt-3" id="agendarTurno">Agendar Turno</button>
     </div>
     <script src="index-script.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -151,8 +159,10 @@
       </p>
       <div class="social-icons">
         <a href="#" class="me-2"><i class="fab fa-facebook"></i></a>
+        <!--<i onclick="clickInstagram" class="fab fa-facebook me-2"></i> -->
         <a href="#" class="me-2"><i class="fab fa-twitter"></i></a>
-        <a href="#"><i class="fab fa-instagram"></i></a>
+        <a href="#" class="me-2"><i class="fab fa-tiktok"></i></a>
+        <a href="#" onclick="clickInstagram()"><i class="fab fa-instagram"></i></a>
       </div>
     </div>
   </footer>

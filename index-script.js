@@ -163,3 +163,8 @@ function handleCredentialResponse(response) {
             // Manejar la respuesta del servidor
         });
 }
+
+const clickInstagram = () => {
+    window.open('https://www.instagram.com/aggiegonz', '_blank');
+};
+
