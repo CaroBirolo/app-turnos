@@ -1,16 +1,44 @@
-/*
-que queden seleccionados los botones cuando clickeo
+var dataTatuadores = null;
+var dataDias = null;
+var tatuadores = [];
+var fechaSeleccionada = null;
+var horaSeleccionada = null;
+var estilosPorTatuador = {};
+var botonTatuadorSeleccionado = null;
+var botonEstiloSeleccionado = null;
+var botonZonaSeleccionado = null
 
-
-*/
 
 document.addEventListener('DOMContentLoaded', () => {
-    const tatuadores = ["agostina", "nicolás"];
-    const estilosPorTatuador = {
+
+
+    fetch('http://localhost:8080/usuarios/admins-con-tipos')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Error al obtener los datos');
+        }
+        return response.json();
+    })
+    .then(data => {
+            dataTatuadores = data;
+            data.forEach(tatuador => {
+                tatuadores.push(tatuador.nombre);
+                estilosPorTatuador[tatuador.nombre] = new Set(tatuador.tiposDeTatuajes.map(tt=>tt.estilo.split('-')[0]));
+            })
+                // Crear botones para cada tatuador
+            tatuadores.forEach(tatuador => {
+                const button = crearBotonTatuador(tatuador);
+                tatuadorButtons.appendChild(button);
+                
+            });
+        });
+    
+
+    /*const estilosPorTatuador = {
         agostina: ['Obras de arte/pinturitas', 'Lineales', 'Kintsugi', 'Ramos de flores', 'Diseños disponibles', 'Personalizado'],
         nicolás: ['Anime fullcolor', 'Anime puntillismo', 'Anime en negro con detalles de color', 'Manga formato panel'],
-    };
-    const zonas = ["Brazo", "Pierna", "Pecho", "Espalda"];
+    };*/
+    const zonas = ["brazo", "pierna", "pecho", "espalda"];
 
     const tatuadorButtons = document.getElementById('tatuadorButtons');
     const tipoTatuajeButtons = document.getElementById('tipoTatuajeButtons');
@@ -26,17 +54,9 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('sectionCalendar').style.display="none";
     document.getElementById('sectionTipoTatuaje').style.display="none";
 
-    let botonSeleccionado = null; // Almacenar el botón de tatuador seleccionado
-
-    // Crear botones para cada tatuador
-    tatuadores.forEach(tatuador => {
-        const button = crearBotonTatuador(tatuador);
-        tatuadorButtons.appendChild(button);
-    });
-
     function crearBotonTatuador(tatuador) {
         const button = document.createElement('button');
-        button.textContent = capitalizar(tatuador);
+        button.textContent = tatuador;
         button.classList.add('boton-tatuadores');
         button.addEventListener('click', () => seleccionarTatuador(tatuador, button));
         return button;
@@ -49,13 +69,17 @@ document.addEventListener('DOMContentLoaded', () => {
         document.getElementById('sectionCalendar').style.display="";
         document.getElementById('sectionTipoTatuaje').style.display="";
         // Actualizar el botón seleccionado
-        actualizarBotonSeleccionado(boton);
+        actualizarTatuadorBotonSeleccionado(boton);
 
         // Generar botones de tipo de tatuaje
         generarBotonesEstilo(tatuadorSeleccionado);
 
         // Ocultar las zonas hasta seleccionar un estilo
         zonaTatuajeButtons.style.display = 'none';
+
+        [...zonaTatuajeButtons.children].forEach(btn => btn.classList.remove('btn-selected'));
+        botonZonaSeleccionado = null;
+
     }
 
     function generarBotonesEstilo(tatuadorSeleccionado) {
@@ -72,14 +96,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const button = document.createElement('button');
         button.textContent = estilo;
         button.classList.add('boton-estilos');
-        button.addEventListener('click', () => seleccionarEstilo(estilo, button));
+        button.addEventListener('click', () => seleccionarEstilo(button));
         return button;
     }
 
-    function seleccionarEstilo(estiloSeleccionado, boton) {
+    function seleccionarEstilo(boton) {
         actualizarBotonesEstilo(boton);
-        zonaTatuajeButtons.style.display = 'flex'; // Mostrar el contenedor de zonas
-        console.log(`Estilo seleccionado: ${estiloSeleccionado}`);
+        zonaTatuajeButtons.style.display = 'flex';
     }
 
     zonas.forEach(zona => {
@@ -100,68 +123,155 @@ document.addEventListener('DOMContentLoaded', () => {
         console.log(`Zona seleccionada: ${zonaSeleccionada}`);
     }
 
-    function actualizarBotonSeleccionado(boton) {
-        if (botonSeleccionado) {
-            botonSeleccionado.classList.remove('btn-success');
-            botonSeleccionado.classList.add('btn-primary');
+    function actualizarTatuadorBotonSeleccionado(boton) {
+        if (botonTatuadorSeleccionado) {
+            botonTatuadorSeleccionado.classList.remove('btn-selected');
+            botonTatuadorSeleccionado.classList.add('btn-secondary');
         }
-        boton.classList.remove('btn-primary');
-        boton.classList.add('btn-success');
-        botonSeleccionado = boton;
+        boton.classList.remove('btn-secondary');
+        boton.classList.add('btn-selected');
+        botonTatuadorSeleccionado = boton;
     }
 
     function actualizarBotonesEstilo(boton) {
-        [...tipoTatuajeButtons.children].forEach(btn => btn.classList.remove('btn-success'));
-        boton.classList.add('btn-success');
+        [...tipoTatuajeButtons.children].forEach(btn => btn.classList.remove('btn-selected'));
+        boton.classList.add('btn-selected');
+        botonEstiloSeleccionado = boton;
     }
 
     function actualizarZonaSeleccionada(boton) {
-        const zonaPrevia = document.querySelector('.zonaSeleccionada');
-        if (zonaPrevia) {
-            zonaPrevia.classList.remove('zonaSeleccionada', 'btn-primary');
-            zonaPrevia.classList.add('btn-secondary');
+        if (botonZonaSeleccionado) {
+            botonZonaSeleccionado.classList.remove('btn-selected');
+            botonZonaSeleccionado.classList.add('btn-secondary');
         }
-        boton.classList.add('zonaSeleccionada', 'btn-primary');
+        boton.classList.add('btn-selected');
         boton.classList.remove('btn-secondary');
+        botonZonaSeleccionado = boton;
+        getHorarios();
     }
 
-    function capitalizar(str) {
-        return str.charAt(0).toUpperCase() + str.slice(1);
+    function getHorarios(){
+        const today = new Date();
+        const yearMonth = today.toISOString().slice(0, 7);
+
+        const url = 'http://localhost:8080/api/turnos/disponibles';
+        const params = new URLSearchParams({
+            emailTatuador: dataTatuadores.find(t => t.nombre ==  botonTatuadorSeleccionado.innerHTML).email,
+            mes: yearMonth,
+            estiloTatuaje: botonEstiloSeleccionado.innerHTML+"-"+botonZonaSeleccionado.innerHTML
+        });
+
+        fetch(`${url}?${params}`, {
+            method: 'GET',
+            headers: {
+                'Accept': '*/*'
+            }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error en la solicitud: ${response.statusText}`);
+            }
+            return response.json(); // Si esperas un JSON como respuesta
+        })
+        .then(data => {
+            dataDias = data;
+            console.log('Datos recibidos:', data);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
     }
 });
 
 // Configuración del calendario
 document.addEventListener('DOMContentLoaded', function () {
-    const disabledDates = ["2024-08-28", "2024-08-29", "2024-09-01"];
-    const redDates = ["2024-09-05", "2024-09-10"];
+
+    const today = new Date();
+    const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);
+    const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0);
 
     flatpickr("#calendario", {
-        disable: disabledDates,
+        enable: [
+            function (date) {
+                // Verificar si la fecha está dentro del mes actual
+                const isWithinMonth = date >= startOfMonth && date <= endOfMonth;
+                // Verificar si es día de semana (1: lunes, ..., 5: viernes)
+                const isWeekday = date.getDay() >= 1 && date.getDay() <= 5; 
+                return isWithinMonth && isWeekday;
+            }
+        ],
+        onChange: function (selectedDates, dateStr, instance) {
+            console.log("Fecha seleccionada:", dateStr);
+            fechaSeleccionada = dateStr;
+            completarHoras(dataDias.find(d=>d.dia == dateStr).horasDisponibles);
+        },
         onDayCreate: function (dObj, dStr, fp, dayElem) {
             const date = dayElem.dateObj.toISOString().split('T')[0];
-            if (redDates.includes(date)) {
-                dayElem.classList.add('red');
+            if (date === today.toISOString().split('T')[0]) {
+                dayElem.classList.add('today-highlight');
             }
         }
     });
+
 });
+
+
+var horaDropdown = document.getElementById("hora");
+horaDropdown.onchange = () => {
+    horaSeleccionada = horaDropdown.value;
+}
+
+function completarHoras(horasDisponibles) {
+    const selectHora = document.getElementById('hora');
+
+    // Limpiar las opciones actuales (excepto la primera)
+    selectHora.innerHTML = '<option value="">Disponibilidad</option>';
+
+    // Agregar las nuevas horas disponibles
+    horasDisponibles.forEach(hora => {
+        const option = document.createElement('option');
+        option.value = hora; // Valor del option
+        option.textContent = `${hora} hs`; // Texto visible
+        selectHora.appendChild(option);
+    });
+}
+
+document.getElementById("agendarTurno").onclick = ()=>{
+    const fechaYHora = `${fechaSeleccionada}T${horaSeleccionada}.000Z`;
+    const data = {
+        emailCliente: "caro@caro.com",
+        emailTatuador: dataTatuadores.find(t => t.nombre ==  botonTatuadorSeleccionado.innerHTML).email,
+        estiloTatuaje: botonEstiloSeleccionado.innerHTML+"-"+botonZonaSeleccionado.innerHTML,
+        fechaYHora: fechaYHora
+    };
+
+    fetch('http://localhost:8080/api/turnos/crear', {
+        method: 'POST', 
+        headers: {
+            'Accept': '*/*',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data) // Convertir el objeto a JSON
+    })
+    .then(response => response.json()) // Convertir la respuesta en formato JSON
+    .then(data => {
+        console.log('Respuesta del servidor:', data); // Aquí procesas la respuesta
+    })
+    .catch(error => {
+        console.error('Error en la solicitud:', error); // Manejo de errores
+    }); 
+}
+
 
 // Manejo de la respuesta de credenciales
 function handleCredentialResponse(response) {
-    const userObject = jwt_decode(response.credential); // Decodificar JWT
-    console.log(userObject);
+    let spUserNname = document.getElementById("spUserNname");
+    let googleDiv = document.getElementById("googleDiv"); 
 
-    // Enviar el token al backend para iniciar sesión
-    fetch('/login', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ token: response.credential })
-    }).then(response => response.json())
-        .then(data => {
-            // Manejar la respuesta del servidor
-        });
+    const userObject = jwt_decode(response.credential); // Decodificar JWT
+    spUserNname.innerHTML = userObject.given_name +" "+userObject.family_name
+    googleDiv.style.display = 'none';
+    console.log(userObject);
 }
 
 const clickInstagram = () => {
