@@ -58,7 +58,7 @@
       <div>Usuario: Agostina</div>
 
       <div id="proximos-turnos" class="form-admin mb-3">
-        <h5>Próximos turnos</h5>
+        <h5>Próximos 2 dias</h5>
         <ul class="list-group" id="lista-turnos">
           <!-- Los turnos se agregarán aquí dinámicamente -->
         </ul>
@@ -111,7 +111,7 @@ TuAgenda
         <h5>Agregar Turno</h5>
         <div class="row">
           <div class="col-12 col-md-6 mb-3">
-            <label for="nombre" class="form-label">Nombre:</label>
+            <label for="nombre" class="form-label">Nombre Completo:</label>
             <input
               type="text"
               id="nombre"
@@ -120,12 +120,12 @@ TuAgenda
             />
           </div>
           <div class="col-12 col-md-6 mb-3">
-            <label for="apellido" class="form-label">Apellido:</label>
+            <label for="apellido" class="form-label">email:</label>
             <input
               type="text"
-              id="apellido"
+              id="email"
               class="form-control"
-              placeholder="Ingresar apellido"
+              placeholder="Ingresar email del cliente"
             />
           </div>
           <div class="col-12 col-md-6 mb-3">
@@ -154,12 +154,10 @@ TuAgenda
             <label for="lugar" class="form-label">Lugar:</label>
             <select id="lugar" class="form-select">
               <option value="">Seleccionar</option>
-              <option value="brazo">Brazo</option>
-              <option value="pierna">Pierna</option>
-              <option value="espalda">Espalda</option>
-              <option value="pecho">Pecho</option>
-              <option value="costilla">Costilla</option>
-              <option value="antebrazo">Antebrazo</option>
+              <option value="brazo">brazo</option>
+              <option value="pierna">pierna</option>
+              <option value="espalda">espalda</option>
+              <option value="pecho">pecho</option>
             </select>
           </div>
           <div class="col-12 col-md-6 mb-3">
@@ -178,28 +176,11 @@ TuAgenda
         </div>
       </div>
 
-      <!-- Tabla de Turnos -->
-      <div class="form-admin">
-        <h5>Turnos Agregados</h5>
-        <div class="table-responsive">
-          <table class="table table-striped">
-            <thead>
-              <tr>
-                <th>Nombre</th>
-                <th>Apellido</th>
-                <th>Telefono</th>
-                <th>Tatuaje</th>
-                <th>Lugar</th>
-                <th>Fecha</th>
-                <th>Hora</th>
-                <th>Acciones</th>
-              </tr>
-            </thead>
-            <tbody id="tabla-turnos">
-              <!-- Aquí se agregarán los turnos dinámicamente -->
-            </tbody>
-          </table>
-        </div>
+      <div id="proximos-turnos-todos" class="form-admin mb-3">
+        <h5>Próximos turnos</h5>
+        <ul class="list-group" id="lista-turnos-todos">
+          <!-- Los turnos se agregarán aquí dinámicamente -->
+        </ul>
       </div>
     </div>
     <script src="demo-admin-script.js"></script>

@@ -39,6 +39,51 @@ fetch(`http://localhost:8080/api/turnos/proximos-dos-dias?emailTatuador=${emailT
     console.error('Error:', error);
 });
 
+// Llamada al backend y renderización de la lista TODOS
+fetch(`http://localhost:8080/api/turnos/all?emailTatuador=${emailTatuador}`)
+.then(response => {
+    if (!response.ok) throw new Error('Error al obtener los turnos');
+    return response.json();
+})
+.then(turnos => {
+    const listaTurnos = document.getElementById('lista-turnos-todos');
+    listaTurnos.innerHTML = '';
+    turnos.forEach(turno => {
+        const elemento = crearElementoTurno(turno);
+        elemento.style.display="flex";
+        elemento.style["justify-content"]="space-between";
+        let button = document.createElement('button')
+        button.value="eliminar";
+        button.innerHTML="eliminar";
+        button.onclick = ()=>{
+            deleteTurno(turno.id);
+        }
+        elemento.appendChild(button);
+        listaTurnos.appendChild(elemento);
+    });
+})
+.catch(error => {
+    console.error('Error:', error);
+});
+
+function deleteTurno(id){
+    fetch(`http://localhost:8080/api/turnos?id=${id}`, {
+        method: 'DELETE',
+        headers: {
+            'Accept': '*/*'
+        }
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error(`Error en la solicitud: ${response.status}`);
+        }
+        console.log("Turno eliminado exitosamente.");
+    })
+    .catch(error => {
+        console.error("Error en el fetch:", error);
+    });
+}
+
 
 
 const url = `http://localhost:8080/usuarios/email?email=${encodeURIComponent(emailTatuador)}`;
@@ -63,6 +108,23 @@ fetch(url, {
 .catch(error => {
     console.error('Error:', error);
 });
+
+
+fetch('http://localhost:8080/usuarios/admins-con-tipos')
+    .then(response => {
+        if (!response.ok) {
+            throw new Error('Error al obtener los datos');
+        }
+        return response.json();
+    })
+    .then(data => {
+        estilos = new Set(data.find(t=>t.email == emailTatuador).tiposDeTatuajes.map(tt=>tt.estilo.split('-')[0]));       
+        let options = "";
+        estilos.forEach(estilo=>{
+            options+=`<option value="${estilo}">${estilo}</option>`;
+        })
+        document.getElementById("tipo-tatuaje").innerHTML=options;
+    });
 
 
 
@@ -100,91 +162,33 @@ document.getElementById("guardar").onclick = ()=> {
     });
 }
 
+document.getElementById("agregar-turno").onclick = ()=>{
+    let fechaSeleccionada = document.getElementById("fecha").value;
+    let horaSeleccionada = document.getElementById("hora").value;
+    const fechaYHora = `${fechaSeleccionada}T${horaSeleccionada}`; 
+    const data = {
+        emailCliente: document.getElementById("email").value,
+        nombreCliente:document.getElementById("nombre").value,
+        telefono: document.getElementById("telefono").value,
+        notasAdicionales: "",
+        emailTatuador: emailTatuador,
+        estiloTatuaje: document.getElementById("tipo-tatuaje").value+"-"+document.getElementById("lugar").value,
+        fechaYHora: fechaYHora
+    };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// Dropdown dependientes
-const lugarDropdown = document.getElementById('lugar');
-const tipoTatuajeDropdown = document.getElementById('tipo-tatuaje');
-const nombreInput = document.getElementById('nombre');
-const apellidoInput = document.getElementById('apellido');
-const telefonoInput = document.getElementById('telefono');
-const fechaInput = document.getElementById('fecha');
-const horaInput = document.getElementById('hora');
-
-// Funcionalidad ABM Turnos
-const tablaTurnos = document.getElementById('tabla-turnos');
-const agregarTurnoBtn = document.getElementById('agregar-turno');
-
-agregarTurnoBtn.addEventListener('click', function(e) {
-    e.preventDefault();
-
-    const nombre = nombreInput.value;
-    const apellido = apellidoInput.value;
-    const telefono = telefonoInput.value;
-    const tipoTatuaje = tipoTatuajeDropdown.value;
-    const lugar = lugarDropdown.value;
-    const fecha = fechaInput.value;
-    const hora = horaInput.value;
-
-    if (nombre && apellido && telefono && tipoTatuaje && lugar && fecha && hora) {
-        const turnoFila = document.createElement('tr');
-
-        turnoFila.innerHTML = `
-            <td>${nombre}</td>
-            <td>${apellido}</td>
-            <td>${telefono}</td>
-            <td>${tipoTatuaje}</td>
-            <td>${lugar}</td>
-            <td>${fecha}</td>
-            <td>${hora}</td>
-            <td>
-                <button class="btn btn-warning btn-sm editar-turno">Editar</button>
-                <button class="btn btn-danger btn-sm eliminar-turno">Eliminar</button>
-            </td>
-        `;
-
-        // Agregar evento de eliminar
-        turnoFila.querySelector('.eliminar-turno').addEventListener('click', function() {
-            tablaTurnos.removeChild(turnoFila);
-        });
-
-        // Agregar evento de editar
-        turnoFila.querySelector('.editar-turno').addEventListener('click', function() {
-            nombreInput.value = nombre;
-            apellidoInput.value = apellido;
-            telefonoInput.value = telefono;
-            tipoTatuajeDropdown.value = tipoTatuaje;
-            lugarDropdown.value = lugar;
-            fechaInput.value = fecha;
-            horaInput.value = hora;
-            tablaTurnos.removeChild(turnoFila); // Eliminar la fila vieja
-        });
-
-        // Añadir turno a la tabla
-        tablaTurnos.appendChild(turnoFila);
-
-        // Limpiar inputs
-        nombreInput.value = '';
-        apellidoInput.value = '';
-        telefonoInput.value = '';
-        tipoTatuajeDropdown.value = '';
-        lugarDropdown.value = '';
-        fechaInput.value = '';
-        horaInput.value = '';
-    } else {
-        alert('Por favor, completa todos los campos.');
-    }
-});
+    fetch('http://localhost:8080/api/turnos/crear', {
+        method: 'POST', 
+        headers: {
+            'Accept': '*/*',
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data) // Convertir el objeto a JSON
+    })
+    .then(response => response.json()) // Convertir la respuesta en formato JSON
+    .then(data => {
+        console.log('Respuesta del servidor:', data); // Aquí procesas la respuesta
+    })
+    .catch(error => {
+        console.error('Error en la solicitud:', error); // Manejo de errores
+    }); 
+}
