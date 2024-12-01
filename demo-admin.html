@@ -57,18 +57,10 @@
     <div class="container mt-5 container py-4">
       <div>Usuario: Agostina</div>
 
-      <div class="form-admin mb-3">
-        <h5>Próximos turnos (Mockeados)</h5>
-        <ul class="list-group">
-          <li class="list-group-item">
-            15 de septiembre - 10:00 AM - Cliente: Juan Pérez
-          </li>
-          <li class="list-group-item">
-            16 de septiembre - 12:00 PM - Cliente: Ana López
-          </li>
-          <li class="list-group-item">
-            16 de septiembre - 2:00 PM - Cliente: Carlos García
-          </li>
+      <div id="proximos-turnos" class="form-admin mb-3">
+        <h5>Próximos turnos</h5>
+        <ul class="list-group" id="lista-turnos">
+          <!-- Los turnos se agregarán aquí dinámicamente -->
         </ul>
       </div>
 
@@ -112,7 +104,7 @@ Saludos,
 TuAgenda
         </textarea>
       </div>
-      <button type="submit" class="btn btn-primary w-100">Guardar</button>
+      <button id="guardar" type="submit" class="btn btn-primary w-100">Guardar</button>
     </div>
     <div id="abm-turnos" class="container py-4">
       <div class="form-admin mb-4">

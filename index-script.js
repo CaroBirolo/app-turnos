@@ -240,6 +240,7 @@ document.getElementById("agendarTurno").onclick = ()=>{
     const fechaYHora = `${fechaSeleccionada}T${horaSeleccionada}.000Z`;
     const data = {
         emailCliente: usuario.email,
+        nombreCliente:document.getElementById("nombre").value,
         telefono: document.getElementById("telefono_input").value,
         notasAdicionales: document.getElementById("notas_input").value,
         emailTatuador: dataTatuadores.find(t => t.nombre ==  botonTatuadorSeleccionado.innerHTML).email,
@@ -298,6 +299,7 @@ function completarCampos(email) {
         })
         .then(data => {
             usuario = data;
+            if(usuario.rol == "admin") window.location.href="/demo-admin.html?email="+data.email;
             document.getElementById("telefono_input").value = data.telefono;
             document.getElementById("notas_input").value = data.notasAdicionales;
             console.log('Datos del usuario:', data)
