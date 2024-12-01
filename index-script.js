@@ -7,7 +7,7 @@ var estilosPorTatuador = {};
 var botonTatuadorSeleccionado = null;
 var botonEstiloSeleccionado = null;
 var botonZonaSeleccionado = null
-
+var usuario = null;
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -239,7 +239,9 @@ function completarHoras(horasDisponibles) {
 document.getElementById("agendarTurno").onclick = ()=>{
     const fechaYHora = `${fechaSeleccionada}T${horaSeleccionada}.000Z`;
     const data = {
-        emailCliente: "caro@caro.com",
+        emailCliente: usuario.email,
+        telefono: document.getElementById("telefono_input").value,
+        notasAdicionales: document.getElementById("notas_input").value,
         emailTatuador: dataTatuadores.find(t => t.nombre ==  botonTatuadorSeleccionado.innerHTML).email,
         estiloTatuaje: botonEstiloSeleccionado.innerHTML+"-"+botonZonaSeleccionado.innerHTML,
         fechaYHora: fechaYHora
@@ -295,6 +297,7 @@ function completarCampos(email) {
             return response.json(); // Si el backend devuelve JSON
         })
         .then(data => {
+            usuario = data;
             document.getElementById("telefono_input").value = data.telefono;
             document.getElementById("notas_input").value = data.notasAdicionales;
             console.log('Datos del usuario:', data)
