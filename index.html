@@ -84,7 +84,7 @@
     </div>
 
     <!-- Google Button -->
-    <div class="d-flex justify-content-center mt-4">
+    <div id="googleDiv" class="d-flex justify-content-center mt-4">
       <div id="g_id_onload"
         data-client_id="672627636268-7pf5a9kdj92ivcegberd0i6u3s825u82.apps.googleusercontent.com"
         data-callback="handleCredentialResponse">
@@ -92,9 +92,11 @@
       <div class="g_id_signin" data-type="standard" data-shape="rectangular" data-theme="outline" data-text="sign_in_with" data-size="large"></div>
     </div>
 
-    <!-- Tattoo Selection Section -->
+    <section class="container mt-5">
+      <h2 id="spUserNname" class="text-center"></h2>
+    </section>
 
-    <section class="container mt-5"></section>
+    <section id="divTatuador" style="display: none" class="container mt-5">
       <h2 class="text-center">Selecciona un tatuador:</h2>
       <div id="tatuadorButtons" class="d-flex flex-wrap justify-content-center gap-3 mt-3"></div>
     </section>
@@ -133,7 +135,7 @@
       <h2>Datos del cliente</h2>
       <div class="mb-3">
         <label for="nombre_input" class="form-label">Nombre completo:</label>
-        <input type="text" id="nombre_input" class="form-control" />
+        <input type="text" id="nombre" disabled="true" class="form-control" />
       </div>
       <div class="mb-3">
         <label for="telefono_input" class="form-label">Telefono:</label>

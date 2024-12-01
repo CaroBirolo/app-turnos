@@ -267,11 +267,41 @@ document.getElementById("agendarTurno").onclick = ()=>{
 function handleCredentialResponse(response) {
     let spUserNname = document.getElementById("spUserNname");
     let googleDiv = document.getElementById("googleDiv"); 
+    let divTatuador = document.getElementById("divTatuador");
+    let nombre = document.getElementById("nombre");
 
     const userObject = jwt_decode(response.credential); // Decodificar JWT
-    spUserNname.innerHTML = userObject.given_name +" "+userObject.family_name
-    googleDiv.style.display = 'none';
+    spUserNname.innerHTML = userObject.given_name +" "+userObject.family_name;
+    nombre.value = userObject.given_name +" "+userObject.family_name;
+    googleDiv.style.visibility = 'hidden';
+    divTatuador.style.display ="";
     console.log(userObject);
+    completarCampos(userObject.email);
+}
+
+function completarCampos(email) {
+    const url = `http://localhost:8080/usuarios/email?email=${encodeURIComponent(email)}`;
+
+    fetch(url, {
+        method: 'GET',
+        headers: {
+            'accept': '*/*' // Encabezado requerido
+        }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(`Error en la solicitud: ${response.statusText}`);
+            }
+            return response.json(); // Si el backend devuelve JSON
+        })
+        .then(data => {
+            document.getElementById("telefono_input").value = data.telefono;
+            document.getElementById("notas_input").value = data.notasAdicionales;
+            console.log('Datos del usuario:', data)
+        })
+        .catch(error => {
+            console.error('Error:', error);
+        });
 }
 
 const clickInstagram = () => {
