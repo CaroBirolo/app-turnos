@@ -34,10 +34,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     
 
-    /*const estilosPorTatuador = {
-        agostina: ['Obras de arte/pinturitas', 'Lineales', 'Kintsugi', 'Ramos de flores', 'Diseños disponibles', 'Personalizado'],
-        nicolás: ['Anime fullcolor', 'Anime puntillismo', 'Anime en negro con detalles de color', 'Manga formato panel'],
-    };*/
+   
     const zonas = ["brazo", "pierna", "pecho", "espalda"];
 
     const tatuadorButtons = document.getElementById('tatuadorButtons');
@@ -307,7 +304,14 @@ function completarCampos(email) {
         .catch(error => {
             console.error('Error:', error);
         });
+
+        document.getElementById('agendarTurno').addEventListener('click', function() {
+            alert('¡El turno ha sido agendado con éxito!');
+            location.reload();
+          });
 }
+
+
 
 const clickInstagram = () => {
     window.open('https://www.instagram.com/aggiegonz', '_blank');
