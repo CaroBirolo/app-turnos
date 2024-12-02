@@ -78,6 +78,8 @@ function deleteTurno(id){
             throw new Error(`Error en la solicitud: ${response.status}`);
         }
         console.log("Turno eliminado exitosamente.");
+        alert("El turno se elimino correctamente");
+        location.reload();
     })
     .catch(error => {
         console.error("Error en el fetch:", error);
@@ -129,11 +131,6 @@ fetch('http://localhost:8080/usuarios/admins-con-tipos')
 
 
 
-
-
-
-
-
 document.getElementById("guardar").onclick = ()=> {
     fetch('http://localhost:8080/usuarios', {
         method: 'PUT',
@@ -142,8 +139,8 @@ document.getElementById("guardar").onclick = ()=> {
             'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-            fechaDesde: document.getElementById("hora-apertura").value,
-            fechaHasta: document.getElementById("hora-cierre").value,
+            fechaDesde: document.getElementById("hora-apertura").value.slice(0, 5),
+            fechaHasta: document.getElementById("hora-cierre").value.slice(0, 5),
             emailTemplate:document.getElementById("template-email").value,
             email: emailTatuador
         })
@@ -155,6 +152,8 @@ document.getElementById("guardar").onclick = ()=> {
         return response.json(); // Si esperas JSON como respuesta
     })
     .then(data => {
+        alert("Los datos se guardaron correctamente");
+        location.reload();
         console.log("Respuesta del servidor:", data);
     })
     .catch(error => {
@@ -186,6 +185,8 @@ document.getElementById("agregar-turno").onclick = ()=>{
     })
     .then(response => response.json()) // Convertir la respuesta en formato JSON
     .then(data => {
+        alert("El turno se guardo correctamente");
+        location.reload();
         console.log('Respuesta del servidor:', data); // Aquí procesas la respuesta
     })
     .catch(error => {
